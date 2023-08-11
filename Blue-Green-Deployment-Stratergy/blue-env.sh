@@ -2,7 +2,7 @@
 
 # Apply the blue-environment deployment 
 
-kubectl apply -f blue-deployment.yaml
+kubectl apply -f blue-deployment.yml -n josh
  
 
 
