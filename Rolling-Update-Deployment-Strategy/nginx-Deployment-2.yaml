@@ -1,0 +1,39 @@
+# Step 3: Perform a Rolling Update
+# Edit the nginx-deployment.yaml file and update the image field to a different NGINX version
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+        - name: nginx
+          image: nginx:new-version  # Replace 'new-version' with your desired version
+          ports:
+            - containerPort: 80
+
+# Service 
+
+# Step 2: Expose the Deployment
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-service
+spec:
+  selector:
+    app: nginx
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+  type: NodePort
+

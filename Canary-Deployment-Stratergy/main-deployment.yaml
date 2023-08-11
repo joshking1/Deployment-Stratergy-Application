@@ -1,0 +1,37 @@
+# Create main deployment 
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: main-deployment
+spec:
+  replicas: 3  # Number of instances of the main version
+  selector:
+    matchLabels:
+      app: main
+  template:
+    metadata:
+      labels:
+        app: main
+    spec:
+      containers:
+        - name: nginx
+          image: nginx:latest  # Replace this with your main version image
+          ports:
+            - containerPort: 80
+
+# Create main deployment service 
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: main-loadbalancer
+spec:
+  selector:
+    app: main
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+  type: LoadBalancer
+

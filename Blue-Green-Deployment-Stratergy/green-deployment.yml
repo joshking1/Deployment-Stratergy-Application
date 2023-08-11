@@ -1,0 +1,36 @@
+# Green deployment Stratergy 
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: green-deployment
+spec:
+  replicas: 3  # Number of instances of NGINX running
+  selector:
+    matchLabels:
+      app: green
+  template:
+    metadata:
+      labels:
+        app: green
+    spec:
+      containers:
+        - name: nginx
+          image: nginx:latest  # You can replace this with your new version image
+          ports:
+            - containerPort: 80
+
+# Green deployment stratergy service 
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: green-service
+spec:
+  selector:
+    app: green
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+  type: LoadBalancer
+

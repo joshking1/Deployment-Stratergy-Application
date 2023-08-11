@@ -1,0 +1,31 @@
+
+# Create ingress for traffic control 
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: canary-ingress
+spec:
+  rules:
+    - http:
+        paths:
+          - path: /main
+            pathType: Prefix
+            backend:
+              service:
+                name: main-loadbalancer
+                port:
+                  number: 80
+          - path: /canary
+            pathType: Prefix
+            backend:
+              service:
+                name: canary-loadbalancer
+                port:
+                  number: 80
+
+# Notes 
+
+# Now, you can access the main version of your application at <main-loadbalancer-ip>/main and the canary version at <canary-loadbalancer-ip>/canary. 
+# This allows you to test the canary version separately without the need for a custom hostname.
+# Remember to replace <main-loadbalancer-ip> and <canary-loadbalancer-ip> with the appropriate IP addresses assigned by the LoadBalancer services.
