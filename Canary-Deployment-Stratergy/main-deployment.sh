@@ -2,4 +2,4 @@
 
 # Create main deployment 
 
-kubectl apply -f main-deployment.yaml
+kubectl apply -f main-deployment.yml -n josh
