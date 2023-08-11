@@ -2,4 +2,4 @@
 
 # Create canary deployment in Kubernetes 
 
-kubectl apply -f canary-deployment.yaml
+kubectl apply -f canary-deployment.yml -n josh
